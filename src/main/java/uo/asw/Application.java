@@ -1,4 +1,4 @@
-package uo.asw.application;
+package uo.asw;
 
 
 import org.springframework.boot.SpringApplication;

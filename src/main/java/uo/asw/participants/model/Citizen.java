@@ -1,7 +1,9 @@
 package uo.asw.participants.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
+@XmlRootElement
 public class Citizen {
 	
 	private Long id;

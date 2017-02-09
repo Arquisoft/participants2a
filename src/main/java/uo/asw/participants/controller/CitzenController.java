@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 
 import uo.asw.participants.model.Citizen;
 
+import java.util.Map;
+
 
 public interface CitzenController {
 
-	public ResponseEntity<Citizen> getCitzen(String nombre, String password);
+	public ResponseEntity<Citizen> getCitzen(Map<String, Object> payload);
 }
