@@ -1,6 +1,7 @@
 package uo.asw.participants.controller.impl;
 
 
+		import org.springframework.beans.factory.annotation.Autowired;
 		import org.springframework.http.HttpStatus;
 		import org.springframework.http.MediaType;
 		import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ package uo.asw.participants.controller.impl;
 		import org.springframework.web.bind.annotation.RequestMethod;
 		import org.springframework.web.bind.annotation.RestController;
 
+		import uo.asw.participants.Participants.ParticipantsService;
 		import uo.asw.participants.controller.CitzenController;
 		import uo.asw.participants.model.Citizen;
 
@@ -17,6 +19,9 @@ package uo.asw.participants.controller.impl;
 
 @RestController
 public class CitzenControllerImpl implements CitzenController {
+
+	@Autowired
+	private ParticipantsService participantsService;
 
 	@Override
 	@RequestMapping(value = "/user", method = RequestMethod.POST,
@@ -27,7 +32,11 @@ public class CitzenControllerImpl implements CitzenController {
 			return new ResponseEntity<Citizen>(HttpStatus.BAD_REQUEST);
 		}
 
-		return new ResponseEntity<Citizen>(new Citizen(), HttpStatus.OK);
+		String login, password;
+		login = (String) payload.get("login");
+		password = (String) payload.get("password");
+
+		return new ResponseEntity<Citizen>(participantsService.getParticipantsInfo(login, password), HttpStatus.OK);
 
 	}
 }
