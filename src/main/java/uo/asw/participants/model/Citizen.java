@@ -1,20 +1,40 @@
 package uo.asw.participants.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.Date;
 
 @XmlRootElement
+@Entity
 public class Citizen {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotNull
 	private String contraseña;
+	@NotNull
 	private String nombreUsuario;
+	@NotNull
+	@Column(unique = true)
 	private String dni;
+	@NotNull
 	private String nombre;
+	@NotNull
 	private String apellidos;
+	@NotNull
 	private Date fechaNacimiento;
+	@NotNull
 	private String email;
+	@NotNull
 	private String direccionPostal;
+	@NotNull
 	private String nacionalidad;
 	
 	public Citizen(){}
