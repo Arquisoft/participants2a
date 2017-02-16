@@ -36,8 +36,8 @@ public class CitizenDAODummy implements CitizenDAO {
     	        .getResultList();
     	if(citizen.isEmpty())
     		return null;
-    	//return citizen.get(0);
-        return dummyCitizen;
+    	return citizen.get(0);
+       // return dummyCitizen;
     }
 
     @Override

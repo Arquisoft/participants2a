@@ -5,6 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,6 +15,7 @@ import java.util.Date;
 
 @XmlRootElement
 @Entity
+@Table(name = "citizen")
 public class Citizen {
 	
 	@Id
@@ -29,6 +33,7 @@ public class Citizen {
 	@NotNull
 	private String apellidos;
 	@NotNull
+	@Temporal(TemporalType.DATE)
 	private Date fechaNacimiento;
 	@NotNull
 	private String email;
