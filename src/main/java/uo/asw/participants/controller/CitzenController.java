@@ -4,10 +4,14 @@ import org.springframework.http.ResponseEntity;
 
 
 
-import uo.asw.participants.model.Citizen;
+
+import uo.asw.participants.Participants.util.CitizenMin;
+
+
+import java.util.Map;
 
 
 public interface CitzenController {
 
-	public ResponseEntity<Citizen> getCitzen(String nombre, String password);
+	public ResponseEntity<CitizenMin> getCitzen(Map<String, Object> payload);
 }
