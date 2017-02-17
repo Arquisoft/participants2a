@@ -2,7 +2,7 @@
 
 CREATE TABLE citizen (
   id      BIGINT PRIMARY KEY,
-  contraseña VARCHAR(30),
+  contrasena VARCHAR(30),
   nombreUsuario  VARCHAR(50),
   dni VARCHAR(50),
   nombre VARCHAR(50),

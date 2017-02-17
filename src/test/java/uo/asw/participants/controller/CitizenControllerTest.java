@@ -74,12 +74,12 @@ public class CitizenControllerTest {
     public void getUserJSON() throws Exception {
         Map<String, String> payload = new HashMap<String, String>() {
             {
-                put("login", "usario");
-                put("password", "contraseña");
+                put("login", "juan");
+                put("password", "1234");
             }
         };
 
-        Citizen c = citizenDAO.getParticipant("", "");
+        Citizen c = citizenDAO.getParticipant("juan", "1234");
         mockMvc.perform(post("/user")
                 .content(this.json(payload))
                 .contentType(JSONContentType))
@@ -94,12 +94,12 @@ public class CitizenControllerTest {
     public void getUserXML() throws Exception {
         Map<String, String> payload = new HashMap<String, String>() {
             {
-                put("login", "usario");
-                put("password", "contraseña");
+                put("login", "juan");
+                put("password", "1234");
             }
         };
 
-        Citizen c = citizenDAO.getParticipant("", "");
+        Citizen c = citizenDAO.getParticipant("juan", "1234");
         mockMvc.perform(post("/user")
                 .content(this.json(payload))
                 .contentType(JSONContentType)
