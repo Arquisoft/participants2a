@@ -2,8 +2,10 @@ package uo.asw.participants.Participants.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import uo.asw.participants.DBManagement.CitizenDAO;
 import uo.asw.participants.Participants.ParticipantsService;
+import uo.asw.participants.Participants.util.CitizenMin;
 import uo.asw.participants.model.Citizen;
 
 /**
@@ -15,8 +17,12 @@ public class ParticipantsServiceImpl implements ParticipantsService {
     private CitizenDAO citizenDAO;
 
     @Override
-    public Citizen getParticipantsInfo(String login, String password) {
-        return citizenDAO.getParticipant(login, password);
+    public CitizenMin getParticipantsInfo(String login, String password) {
+       Citizen c = citizenDAO.getParticipant(login, password);
+       if(c != null){
+    	   return new CitizenMin(c.getNombre(), c.getApellidos(), c.getFechaNacimiento(), c.getId(), c.getEmail());
+       }
+       return null;
     }
 
     @Override

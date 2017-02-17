@@ -1,6 +1,7 @@
 package uo.asw.participants.Participants;
 
-import org.springframework.stereotype.Service;
+
+import uo.asw.participants.Participants.util.CitizenMin;
 import uo.asw.participants.model.Citizen;
 
 /**
@@ -8,6 +9,6 @@ import uo.asw.participants.model.Citizen;
  * @since 0.0.1
  */
 public interface ParticipantsService {
-    Citizen getParticipantsInfo(String login, String password);
+    CitizenMin getParticipantsInfo(String login, String password);
     Citizen changeInfo(Citizen updatedData);
 }
