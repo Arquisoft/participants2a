@@ -94,6 +94,63 @@ public class CitizenControllerTest {
     }
 
     @Test
+    //Usuario con login no registrado
+    public void testNotFoundLogin() throws Exception {
+        Map<String, String> payload = new HashMap<String, String>() {
+			private static final long serialVersionUID = 1L;
+
+			{
+                put("login", "juanJUANjuan");
+                put("password", "1234");
+            }
+        };
+
+        mockMvc.perform(post("/user")
+        		.content(new byte[0]) //Contenido vacio
+                .content(this.json(payload))
+                .contentType(JSONContentType))
+                .andExpect(status().isNotFound());
+    }
+    
+    @Test
+    //Usuario con password incorrecta
+    public void testNotFoundPassword() throws Exception {
+        Map<String, String> payload = new HashMap<String, String>() {
+			private static final long serialVersionUID = 1L;
+
+			{
+                put("login", "juan");
+                put("password", "1234abcde");
+            }
+        };
+
+        mockMvc.perform(post("/user")
+        		.content(new byte[0]) //Contenido vacio
+                .content(this.json(payload))
+                .contentType(JSONContentType))
+                .andExpect(status().isNotFound());
+    }
+    
+    @Test
+    //Usuario con password y login incorrecto
+    public void testNotFoundPasswordAndLogin() throws Exception {
+        Map<String, String> payload = new HashMap<String, String>() {
+			private static final long serialVersionUID = 1L;
+
+			{
+                put("login", "juanJUANjuan");
+                put("password", "1234abcde");
+            }
+        };
+
+        mockMvc.perform(post("/user")
+        		.content(new byte[0]) //Contenido vacio
+                .content(this.json(payload))
+                .contentType(JSONContentType))
+                .andExpect(status().isNotFound());
+    }
+    
+    @Test
     //Comprueba que el usuario se obtiene correctamente en formato JSON
     public void getUserXML() throws Exception {
         Map<String, String> payload = new HashMap<String, String>() {

@@ -33,19 +33,9 @@ public class DatabaseConfig {
 	private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
 	/**
-	 * Se define la conexión con la base de datos, driver, url, nombre de
-	 * usuario y contraseña
+	 * Crea una base de datos embebida, crea las tablas y carga los datos
+	 * @return DataSource
 	 */
-//	@Bean
-//	public DataSource dataSource() {
-//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//		dataSource.setDriverClassName(env.getProperty("db.driver"));
-//		dataSource.setUrl(env.getProperty("db.url"));
-//		dataSource.setUsername(env.getProperty("db.username"));
-//		dataSource.setPassword(env.getProperty("db.password"));
-//		return dataSource;
-//	}
-
 	@Bean
 	public DataSource dataSource() {
 		
@@ -57,7 +47,7 @@ public class DatabaseConfig {
 	}
 	
 	/**
-	 * EntityManagerFactory para JPA
+	 * EntityManagerFactory para JPA, con la base de datos embebida
 	 */
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
