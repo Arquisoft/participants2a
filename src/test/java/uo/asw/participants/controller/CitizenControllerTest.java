@@ -14,6 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
 import uo.asw.Application;
 import uo.asw.participants.DBManagement.CitizenDAO;
 import uo.asw.participants.model.Citizen;
@@ -42,7 +43,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class CitizenControllerTest {
 
     private MockMvc mockMvc;
-    private HttpMessageConverter mappingJackson2HttpMessageConverter;
+    @SuppressWarnings("rawtypes")
+	private HttpMessageConverter mappingJackson2HttpMessageConverter;
     @Autowired
     private WebApplicationContext webApplicationContext;
     @Autowired
@@ -73,7 +75,9 @@ public class CitizenControllerTest {
     //Comprueba que el usuario se obtiene correctamente en formato JSON
     public void getUserJSON() throws Exception {
         Map<String, String> payload = new HashMap<String, String>() {
-            {
+			private static final long serialVersionUID = 1L;
+
+			{
                 put("login", "juan");
                 put("password", "1234");
             }
@@ -93,7 +97,9 @@ public class CitizenControllerTest {
     //Comprueba que el usuario se obtiene correctamente en formato JSON
     public void getUserXML() throws Exception {
         Map<String, String> payload = new HashMap<String, String>() {
-            {
+			private static final long serialVersionUID = 1L;
+
+			{
                 put("login", "juan");
                 put("password", "1234");
             }
@@ -115,7 +121,8 @@ public class CitizenControllerTest {
      * @return string conteniendo el JSON
      * @throws IOException
      */
-    private String json(Object o) throws IOException {
+    @SuppressWarnings("unchecked")
+	private String json(Object o) throws IOException {
         MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
         this.mappingJackson2HttpMessageConverter.write(
                 o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);

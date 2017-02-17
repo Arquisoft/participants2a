@@ -17,13 +17,9 @@ public class CitizenMin {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.edad = CalcularEdad(fechaNacimiento);
+		this.edad = DateUtil.getYears(fechaNacimiento);
 		this.id = id;
 		this.email = email;
-	}
-	
-	private int CalcularEdad(Date fecha){
-		return 20;
 	}
 	
 	public String getFirstName() {
