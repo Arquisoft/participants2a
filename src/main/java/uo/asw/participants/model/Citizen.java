@@ -22,6 +22,7 @@ public class Citizen {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@NotNull
+	@Column(name = "contrasena")
 	private String contraseña;
 	@NotNull
 	private String nombreUsuario;
