@@ -151,7 +151,7 @@ public class CitizenControllerTest {
     }
     
     @Test
-    //Comprueba que el usuario se obtiene correctamente en formato JSON
+    //Comprueba que el usuario se obtiene correctamente en formato XML
     public void getUserXML() throws Exception {
         Map<String, String> payload = new HashMap<String, String>() {
 			private static final long serialVersionUID = 1L;
@@ -183,6 +183,20 @@ public class CitizenControllerTest {
         MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
         this.mappingJackson2HttpMessageConverter.write(
                 o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
+        return mockHttpOutputMessage.getBodyAsString();
+    }
+
+    /**
+     * Transforma un objeto en un string JSON
+      * @param o objeto a convertir
+     * @return string conteniendo el JSON
+     * @throws IOException
+     */
+    @SuppressWarnings("unchecked")
+	private String xml(Object o) throws IOException {
+        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
+        this.mappingJackson2HttpMessageConverter.write(
+                o, MediaType.APPLICATION_XML, mockHttpOutputMessage);
         return mockHttpOutputMessage.getBodyAsString();
     }
 

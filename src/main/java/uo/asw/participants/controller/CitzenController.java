@@ -1,9 +1,7 @@
 package uo.asw.participants.controller;
 
 import org.springframework.http.ResponseEntity;
-
-
-
+import org.springframework.ui.Model;
 
 import uo.asw.participants.Participants.util.CitizenMin;
 
