@@ -186,18 +186,4 @@ public class CitizenControllerTest {
         return mockHttpOutputMessage.getBodyAsString();
     }
 
-    /**
-     * Transforma un objeto en un string JSON
-      * @param o objeto a convertir
-     * @return string conteniendo el JSON
-     * @throws IOException
-     */
-    @SuppressWarnings("unchecked")
-	private String xml(Object o) throws IOException {
-        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
-        this.mappingJackson2HttpMessageConverter.write(
-                o, MediaType.APPLICATION_XML, mockHttpOutputMessage);
-        return mockHttpOutputMessage.getBodyAsString();
-    }
-
 }

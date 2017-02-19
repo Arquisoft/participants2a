@@ -1,23 +1,19 @@
 package uo.asw.participants.controller.impl;
 
 
-		import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-		import uo.asw.participants.Participants.ParticipantsService;
+import uo.asw.participants.Participants.ParticipantsService;
 import uo.asw.participants.Participants.util.CitizenMin;
 import uo.asw.participants.controller.CitzenController;
 
-
-		import java.util.Arrays;
 import java.util.Map;
 
 @RestController
