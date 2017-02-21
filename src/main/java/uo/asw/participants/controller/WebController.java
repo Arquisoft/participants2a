@@ -43,6 +43,20 @@ public class WebController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/changeInfo", method = RequestMethod.GET)
+	public String changeInfo() {
+		return "changeInfo";
+	}
+	
+	
+	@RequestMapping(value = "/changeInfo", method = RequestMethod.POST)
+	public String changePassword(@RequestParam String password,
+			@RequestParam String newPassword, Model model) {
+		System.out.println(password);
+		System.out.println(newPassword);
+		return "view";
+	}
+	
 	
 	
 
