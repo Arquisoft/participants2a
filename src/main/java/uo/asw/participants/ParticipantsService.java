@@ -1,8 +1,8 @@
-package uo.asw.participants.Participants;
+package uo.asw.participants;
 
 
-import uo.asw.participants.Participants.util.CitizenMin;
-import uo.asw.participants.model.Citizen;
+import uo.asw.dbManagement.model.Citizen;
+import uo.asw.participants.util.CitizenMin;
 
 /**
  * Servicio de participantes

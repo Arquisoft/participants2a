@@ -1,4 +1,4 @@
-package uo.asw.participants.model;
+package uo.asw.dbManagement.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

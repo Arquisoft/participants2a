@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import uo.asw.participants.Participants.util.CitizenMin;
+import uo.asw.participants.util.CitizenMin;
 
 @Controller
 public class WebController {
@@ -42,6 +42,8 @@ public class WebController {
 		// TODO: añadir el resto de info del citizen.
 		return mv;
 	}
+	
+	
 	
 
 }

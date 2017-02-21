@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import uo.asw.Application;
-import uo.asw.participants.DBManagement.CitizenDAO;
-import uo.asw.participants.model.Citizen;
+import uo.asw.dbManagement.CitizenDAO;
+import uo.asw.dbManagement.model.Citizen;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

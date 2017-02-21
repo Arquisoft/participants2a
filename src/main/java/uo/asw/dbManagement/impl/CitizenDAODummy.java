@@ -1,12 +1,9 @@
-package uo.asw.participants.DBManagement.impl;
+package uo.asw.dbManagement.impl;
 
 import org.springframework.stereotype.Repository;
 
-
-
-
-import uo.asw.participants.DBManagement.CitizenDAO;
-import uo.asw.participants.model.Citizen;
+import uo.asw.dbManagement.CitizenDAO;
+import uo.asw.dbManagement.model.Citizen;
 
 import java.util.Date;
 import java.util.List;

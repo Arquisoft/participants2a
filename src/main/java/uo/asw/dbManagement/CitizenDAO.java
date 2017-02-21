@@ -1,6 +1,6 @@
-package uo.asw.participants.DBManagement;
+package uo.asw.dbManagement;
 
-import uo.asw.participants.model.Citizen;
+import uo.asw.dbManagement.model.Citizen;
 
 /**
  * @since 0.0.1

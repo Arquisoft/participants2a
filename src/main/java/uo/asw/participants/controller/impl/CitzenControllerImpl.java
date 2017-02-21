@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import uo.asw.participants.Participants.ParticipantsService;
-import uo.asw.participants.Participants.util.CitizenMin;
+import uo.asw.participants.ParticipantsService;
 import uo.asw.participants.controller.CitzenController;
+import uo.asw.participants.util.CitizenMin;
 
 import java.util.Map;
 

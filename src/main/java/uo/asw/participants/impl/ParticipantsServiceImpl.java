@@ -1,12 +1,12 @@
-package uo.asw.participants.Participants.impl;
+package uo.asw.participants.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import uo.asw.participants.DBManagement.CitizenDAO;
-import uo.asw.participants.Participants.ParticipantsService;
-import uo.asw.participants.Participants.util.CitizenMin;
-import uo.asw.participants.model.Citizen;
+import uo.asw.dbManagement.CitizenDAO;
+import uo.asw.dbManagement.model.Citizen;
+import uo.asw.participants.ParticipantsService;
+import uo.asw.participants.util.CitizenMin;
 
 /**
  * Created by Irazusta on 15/02/2017.

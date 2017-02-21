@@ -1,4 +1,4 @@
-package uo.asw.participants.Participants.util;
+package uo.asw.participants.util;
 
 import java.util.Date;
 

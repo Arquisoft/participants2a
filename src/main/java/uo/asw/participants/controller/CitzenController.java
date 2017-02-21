@@ -2,8 +2,7 @@ package uo.asw.participants.controller;
 
 import org.springframework.http.ResponseEntity;
 
-import uo.asw.participants.Participants.util.CitizenMin;
-
+import uo.asw.participants.util.CitizenMin;
 
 import java.util.Map;
 
