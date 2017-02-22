@@ -7,16 +7,31 @@
 <h2>Tu informacion: </h2>
    <table>
     <tr>
-        <td>Usuario: </td>
+        <td>Nombre: </td>
         <td><span th:text="${session.citizen.nombre}"/></td>
+    </tr>
+    <tr>
+        <td>Apellidos: </td>
+        <td><span th:text="${session.citizen.apellidos}"/></td>
     </tr>
     <tr>
         <td>Email: </td>
         <td><span th:text="${session.citizen.email}"/></td>
     </tr>
+    
+    <tr>
+    	<td>Direccion: </td>
+    	<td><span th:text="${session.citizen.direccionPostal}"/></td>
+    </tr>
+    <tr>
+    	<td>Nacionalidad: </td>
+    	<td><span th:text="${session.citizen.nacionalidad}"/></td>
+    </tr>
     <tr>
     	<td><a href="changeInfo">Modificar datos</a></td>
+    	<td> <a href="/">Volver a inicio</a></td>
     </tr>
+   
 </table>  
 </body>
 </html>
