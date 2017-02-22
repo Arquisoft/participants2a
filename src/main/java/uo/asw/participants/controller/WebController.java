@@ -74,15 +74,30 @@ public class WebController {
 	}
 	
 	
+	/**
+	 * Cambia la contrasena de un usuario, siempre que e usuario este
+	 * en sesion, la contrasena antigua se igual que la contrasena
+	 * de parametro y la nueva contrasena no sea vacia
+	 * @param session scope
+	 * @param password contrasena antigua
+	 * @param newPassword contrasena nueva
+	 * @param model
+	 * @return pagina siguiente
+	 */
 	@RequestMapping(value = "/changeInfo", method = RequestMethod.POST)
 	public String changePassword(HttpSession session, @RequestParam String password,
 			@RequestParam String newPassword, Model model) {
 		Citizen c = (Citizen) session.getAttribute("citizen");
 		if(c != null){
-			System.out.println(c.getNombre());
+			if(c.getContraseña().equals(password) && !newPassword.isEmpty()){
+				c.setContraseña(newPassword);
+				cc.updateInfo(c);
+			}else{
+				return "errorContrasena";
+			}
+		}else{
+			return "errorContrasena";
 		}
-		System.out.println(password);
-		System.out.println(newPassword);
 		return "view";
 	}
 	

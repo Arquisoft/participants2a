@@ -10,11 +10,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 /**
  * @since 0.0.1
  */
 @Repository
+@Transactional
 public class CitizenDAODummy implements CitizenDAO {
     private static Citizen dummyCitizen;
     @PersistenceContext
