@@ -74,5 +74,24 @@ public class DBTest {
     	assertNull(c3);
     }
     
+    @Test
+    public void updateTest() throws Exception {
+    	
+    	Citizen c1 = citizenDAO.getParticipant("juan", "1234");
+    	
+    	//Cambio de contraseña
+    	c1.setContraseña("new password");
+       	citizenDAO.updateInfo(c1);
+       
+       	assertEquals("new password", c1.getContraseña());
+       	
+       	//Cambio de contraseña por la original
+       	c1.setContraseña("1234");
+       	citizenDAO.updateInfo(c1);
+       	
+       	assertEquals("1234", c1.getContraseña());
+
+        	
+    }
 
 }
