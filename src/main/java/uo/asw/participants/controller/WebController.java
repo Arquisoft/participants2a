@@ -68,13 +68,19 @@ public class WebController {
 	 */
 	@RequestMapping(value = "/info", method = RequestMethod.POST)
 	public String showInfo(HttpSession session, @RequestParam String user, @RequestParam String password, Model model) {
-		Citizen c = cc.getParticipant(user, password);
-		// Es necesario guardar el usuario en la sesión para poder modificar sus
-		// datos
-		session.setAttribute("citizen", c);
-		if (c == null)
-			return "error";
-		return "view";
+
+		Citizen c = null;
+
+		if (user != null && password != null) {
+			c = cc.getParticipant(user, password);
+			if (c != null) {
+				session.setAttribute("citizen", c);
+				model.addAttribute("resultado", "Bienvenid@ " + c.getNombre());
+				return "view";
+			}
+		}
+		return "error";
+
 	}
 
 	/**
@@ -109,13 +115,13 @@ public class WebController {
 			if (c.getContraseña().equals(password) && !newPassword.isEmpty()) {
 				c.setContraseña(newPassword);
 				cc.updateInfo(c);
-			} else {
-				return "errorContrasena";
+				model.addAttribute("resultado", "Contrasena actualizada correctamente");
+				return "view";
 			}
-		} else {
 			return "errorContrasena";
 		}
-		return "view";
+		return "error";
+
 	}
 
 }
