@@ -1,8 +1,5 @@
 package uo.asw.participants.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,94 +9,113 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import uo.asw.dbManagement.CitizenDAO;
 import uo.asw.dbManagement.model.Citizen;
 
-
 @Controller
 public class WebController {
 
+	/**
+	 * Devuelve la pagina de incio login
+	 * 
+	 * @param model
+	 * @return pagina log HTML
+	 */
 	@RequestMapping(value = { "/", "/portal" }, method = RequestMethod.GET)
 	public String showView(Model model) {
 		// model.addAttribute("nombre","luis");
 		return "log";
 	}
 
-//	@Autowired
-//	CitzenController cc;
-//
-//	@RequestMapping(value = "/info", method = RequestMethod.GET, params = { "user", "password" })
-//	public ModelAndView showInfo(@RequestParam(value = "user") String username,
-//			@RequestParam(value = "password") String password) {
-//		Map<String, Object> mp = new HashMap<>();
-//		mp.put("login", username);
-//		mp.put("password", password);
-//		ResponseEntity<CitizenMin> c = cc.getCitzen(mp);
-//		if(c.getStatusCode()!=HttpStatus.OK)
-//			return new ModelAndView("error");
-//		ModelAndView mv = new ModelAndView("view");
-//		mv.addObject("name",c.getBody().getFirstName());
-//		mv.addObject("mail",c.getBody().getEmail());
-//		// TODO: añadir el resto de info del citizen.
-//		return mv;
-//	}
-	
+	// @Autowired
+	// CitzenController cc;
+	//
+	// @RequestMapping(value = "/info", method = RequestMethod.GET, params = {
+	// "user", "password" })
+	// public ModelAndView showInfo(@RequestParam(value = "user") String
+	// username,
+	// @RequestParam(value = "password") String password) {
+	// Map<String, Object> mp = new HashMap<>();
+	// mp.put("login", username);
+	// mp.put("password", password);
+	// ResponseEntity<CitizenMin> c = cc.getCitzen(mp);
+	// if(c.getStatusCode()!=HttpStatus.OK)
+	// return new ModelAndView("error");
+	// ModelAndView mv = new ModelAndView("view");
+	// mv.addObject("name",c.getBody().getFirstName());
+	// mv.addObject("mail",c.getBody().getEmail());
+	// // TODO: añadir el resto de info del citizen.
+	// return mv;
+	// }
+
 	@Autowired
 	private CitizenDAO cc;
-	
-	@RequestMapping(value = "/info", method = RequestMethod.GET, params = { "user", "password" })
-	public ModelAndView showInfo(HttpSession session, @RequestParam(value = "user") String username,
-			@RequestParam(value = "password") String password) {
-		Map<String, Object> mp = new HashMap<>();
-		mp.put("login", username);
-		mp.put("password", password);
-		Citizen c = cc.getParticipant(username, password);
-		//Es necesario guardar el usuario en la sesión para poder modificar sus datos
+
+	/**
+	 * Recibe los datos de login del usuario, busca si exite ese usuario y en
+	 * caso de exitir pasa a la siguiente página que muestra la informacion en
+	 * caso contrario muestra la página de error
+	 * 
+	 * @param session
+	 *            mantiene la sesion
+	 * @param user
+	 *            nombre del login
+	 * @param password
+	 *            contresena del usuario
+	 * @param model
+	 * @return view si exito, error si fracaso
+	 */
+	@RequestMapping(value = "/info", method = RequestMethod.POST)
+	public String showInfo(HttpSession session, @RequestParam String user, @RequestParam String password, Model model) {
+		Citizen c = cc.getParticipant(user, password);
+		// Es necesario guardar el usuario en la sesión para poder modificar sus
+		// datos
 		session.setAttribute("citizen", c);
-		if(c == null)
-			return new ModelAndView("error");
-		ModelAndView mv = new ModelAndView("view");
-		mv.addObject("name",c.getNombre());
-		mv.addObject("mail",c.getEmail());
-		// TODO: añadir el resto de info del citizen.
-		return mv;
+		if (c == null)
+			return "error";
+		return "view";
 	}
-	
+
+	/**
+	 * Acceso a la página que modifica los datos del usuario
+	 * 
+	 * @return changeInfo html para modificar datos del usuario
+	 */
 	@RequestMapping(value = "/changeInfo", method = RequestMethod.GET)
 	public String changeInfo() {
 		return "changeInfo";
 	}
-	
-	
+
 	/**
-	 * Cambia la contrasena de un usuario, siempre que e usuario este
-	 * en sesion, la contrasena antigua se igual que la contrasena
-	 * de parametro y la nueva contrasena no sea vacia
-	 * @param session scope
-	 * @param password contrasena antigua
-	 * @param newPassword contrasena nueva
+	 * Cambia la contrasena de un usuario, siempre que e usuario este en sesion,
+	 * la contrasena antigua se igual que la contrasena de parametro y la nueva
+	 * contrasena no sea vacia
+	 * 
+	 * @param session
+	 *            scope
+	 * @param password
+	 *            contrasena antigua
+	 * @param newPassword
+	 *            contrasena nueva
 	 * @param model
 	 * @return pagina siguiente
 	 */
 	@RequestMapping(value = "/changeInfo", method = RequestMethod.POST)
-	public String changePassword(HttpSession session, @RequestParam String password,
-			@RequestParam String newPassword, Model model) {
+	public String changePassword(HttpSession session, @RequestParam String password, @RequestParam String newPassword,
+			Model model) {
 		Citizen c = (Citizen) session.getAttribute("citizen");
-		if(c != null){
-			if(c.getContraseña().equals(password) && !newPassword.isEmpty()){
+		if (c != null) {
+			if (c.getContraseña().equals(password) && !newPassword.isEmpty()) {
 				c.setContraseña(newPassword);
 				cc.updateInfo(c);
-			}else{
+			} else {
 				return "errorContrasena";
 			}
-		}else{
+		} else {
 			return "errorContrasena";
 		}
 		return "view";
 	}
-	
-	
 
 }
