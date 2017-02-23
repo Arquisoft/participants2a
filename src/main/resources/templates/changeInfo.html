@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th ="http://www.thymeleaf.org/">
 <head>
 <meta charset="ISO-8859-1" />
 <title>Change participant info</title>
@@ -7,7 +7,7 @@
 <body>
 	<h1>
 		Cambiar la contrasena del usuario <span
-			th:text="${session.citizen.nombre}" />
+			th:text="${session.citizen.firstName}" />
 	</h1>
 	<form method="POST" action="changeInfo">
 		<table>

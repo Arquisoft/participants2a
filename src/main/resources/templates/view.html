@@ -1,4 +1,4 @@
-<html>
+<html xmlns:th ="http://www.thymeleaf.org/">
 <head>
     <title>Spring MVC Form Handling</title>
 </head>
@@ -21,19 +21,19 @@
    <table>
     <tr>
         <td>Nombre: </td>
-        <td><span th:text="${session.citizen.nombre}"/></td>
+        <td><span th:text="${session.citizen.firstName}"/></td>
     </tr>
     <tr>
         <td>Apellidos: </td>
-        <td><span th:text="${session.citizen.apellidos}"/></td>
+        <td><span th:text="${session.citizen.lastName}"/></td>
     </tr>
     <tr>
     	<td>Direccion: </td>
-    	<td><span th:text="${session.citizen.direccionPostal}"/></td>
+    	<td><span th:text="${session.citizen.address}"/></td>
     </tr>
     <tr>
     	<td>Nacionalidad: </td>
-    	<td><span th:text="${session.citizen.nacionalidad}"/></td>
+    	<td><span th:text="${session.citizen.nationality}"/></td>
     </tr>
     <tr>
     	<td><a href="changeInfo">Modificar datos</a></td>

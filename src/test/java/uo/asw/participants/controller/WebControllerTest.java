@@ -21,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 import uo.asw.Application;
 import uo.asw.dbManagement.CitizenDAO;
 import uo.asw.dbManagement.model.Citizen;
+import uo.asw.participants.util.CitizenMin;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -99,7 +100,8 @@ public class WebControllerTest {
    @Test
    public void changePasswordTest1() throws Exception {
    	
-	   Citizen c = citizenDAO.getParticipant("juan", "1234");
+	   Citizen ct = citizenDAO.getParticipant("juan", "1234");
+       CitizenMin c = new CitizenMin(ct);
 
 	   //Cambio de contraseña
        mockMvc.perform(post("/changeInfo")
@@ -122,8 +124,9 @@ public class WebControllerTest {
    @Test
    //Contraseña incorrecta
    public void changePasswordTest2() throws Exception {
-   	
-	   Citizen c = citizenDAO.getParticipant("juan", "1234");
+
+       Citizen ct = citizenDAO.getParticipant("juan", "1234");
+       CitizenMin c = new CitizenMin(ct);
 
        mockMvc.perform(post("/changeInfo")
     	.param("password", "password")
@@ -135,8 +138,9 @@ public class WebControllerTest {
    
    @Test
    public void changeEmailTest1() throws Exception {
-   	
-	   Citizen c = citizenDAO.getParticipant("juan", "1234");
+
+       Citizen ct = citizenDAO.getParticipant("juan", "1234");
+       CitizenMin c = new CitizenMin(ct);
 
 	   //Cambio de email
        mockMvc.perform(post("/changeEmail")

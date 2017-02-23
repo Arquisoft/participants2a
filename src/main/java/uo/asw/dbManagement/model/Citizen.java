@@ -1,13 +1,10 @@
 package uo.asw.dbManagement.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -42,6 +39,8 @@ public class Citizen {
 	private String direccionPostal;
 	@NotNull
 	private String nacionalidad;
+
+	private static PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	public Citizen(){}
 	
@@ -70,6 +69,15 @@ public class Citizen {
 
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
+	}
+
+	/**
+	 * Guarda la contraseña encriptada
+	 * @param contraseña la contraseña a guardar
+	 */
+	public void setAndHashContraseña(String contraseña) {
+		String hashed = passwordEncoder.encode(contraseña);
+		setContraseña(hashed);
 	}
 
 	public String getNombreUsuario() {
@@ -135,8 +143,15 @@ public class Citizen {
 	public Long getId(){
 		return id;
 	}
-	
-	
+
+	/**
+	 * Comprueba que la contraseña es correcta frente a la encriptada
+	 * @param passToCheck contraseña a comprobar
+	 * @return si la contraseña es correcta
+	 */
+	public boolean checkPassword(String passToCheck){
+		return passwordEncoder.matches(passToCheck, this.contraseña);
+	}
 
 	@Override
 	public int hashCode() {

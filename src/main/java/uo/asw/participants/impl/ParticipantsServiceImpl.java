@@ -20,9 +20,15 @@ public class ParticipantsServiceImpl implements ParticipantsService {
     public CitizenMin getParticipantsInfo(String login, String password) {
        Citizen c = citizenDAO.getParticipant(login, password);
        if(c != null){
-    	   return new CitizenMin(c.getNombre(), c.getApellidos(), c.getFechaNacimiento(), c.getId(), c.getEmail());
+    	   return new CitizenMin(c);
        }
        return null;
+    }
+
+    @Override
+    public Citizen getCitizen(Long id) {
+        return citizenDAO.getParticipantById(id);
+
     }
 
     @Override

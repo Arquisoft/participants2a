@@ -10,5 +10,6 @@ import uo.asw.participants.util.CitizenMin;
  */
 public interface ParticipantsService {
     CitizenMin getParticipantsInfo(String login, String password);
+    Citizen getCitizen(Long id);
     Citizen changeInfo(Citizen updatedData);
 }

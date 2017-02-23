@@ -1,5 +1,7 @@
 package uo.asw.participants.util;
 
+import uo.asw.dbManagement.model.Citizen;
+
 import java.util.Date;
 
 public class CitizenMin {
@@ -9,19 +11,32 @@ public class CitizenMin {
 	private int edad;
 	private Long id;
 	private String email;
+	private String address;
+	private String nationality;
 	
 	
 	
 	public CitizenMin(String firstName, String lastName, Date fechaNacimiento, Long id,
 			String email) {
-		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.edad = DateUtil.getYears(fechaNacimiento);
 		this.id = id;
 		this.email = email;
 	}
-	
+
+	public CitizenMin(Citizen c){
+		this.firstName = c.getNombre();
+		this.lastName = c.getApellidos();
+		this.edad = DateUtil.getYears(c.getFechaNacimiento());
+		this.id = c.getId();
+		this.email = c.getEmail();
+		this.address = c.getDireccionPostal();
+		this.nationality = c.getNacionalidad();
+	}
+
+
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -53,6 +68,21 @@ public class CitizenMin {
 		this.email = email;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
 
 	@Override
 	public String toString() {
