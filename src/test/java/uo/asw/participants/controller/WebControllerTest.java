@@ -1,5 +1,12 @@
 package uo.asw.participants.controller;
 
+import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,14 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.ModelAndView;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 
 import uo.asw.Application;
 import uo.asw.dbManagement.CitizenDAO;
@@ -31,6 +32,9 @@ public class WebControllerTest {
     private WebApplicationContext wac;
  
     private MockMvc mockMvc;
+    
+    @Autowired
+    private CitizenDAO citizenDAO;
      
     @Before
     public void init() {
@@ -55,10 +59,10 @@ public class WebControllerTest {
     //usuario incorrecto
     public void showInfoTest2() throws Exception {
     	
-        mockMvc.perform(get("/info")
+        mockMvc.perform(post("/info")
     	.param("user", "usuario")
 		.param("password", "1234"))
-        .andExpect(status().is4xxClientError());
+     	.andExpect(view().name("error"));
 
     }
     
@@ -66,13 +70,23 @@ public class WebControllerTest {
     //contraseña incorrecta
     public void showInfoTest3() throws Exception {
 
-       	mockMvc.perform(get("/info")
+       	mockMvc.perform(post("/info")
     	.param("user", "juan")
 		.param("password", "password"))
-      	.andExpect(status().is4xxClientError());
+     	.andExpect(view().name("error"));
    
     }
     
+    @Test
+    //usuario y contraseña vacios
+    public void showInfoTest4() throws Exception {
+
+       	mockMvc.perform(post("/info")
+    	.param("user", "")
+		.param("password", ""))
+        .andExpect(view().name("error"));
+   
+    }
     
    @Test
    public void showViewTest() throws Exception {
@@ -81,4 +95,66 @@ public class WebControllerTest {
            .andExpect(view().name("log"));
    }
     
+   
+   @Test
+   public void changePasswordTest1() throws Exception {
+   	
+	   Citizen c = citizenDAO.getParticipant("juan", "1234");
+
+	   //Cambio de contraseña
+       mockMvc.perform(post("/changeInfo")
+    	.param("password", "1234")
+		.param("newPassword", "new")
+		.sessionAttr("citizen", c))
+        .andExpect(status().isOk())
+    	.andExpect(view().name("view"));
+
+	   //Cambio de contraseña de nuevo por la original
+       mockMvc.perform(post("/changeInfo")
+    	.param("password", "new")
+		.param("newPassword", "1234")
+		.sessionAttr("citizen", c))
+        .andExpect(status().isOk())
+     	.andExpect(view().name("view"));
+       
+   }
+   
+   @Test
+   //Contraseña incorrecta
+   public void changePasswordTest2() throws Exception {
+   	
+	   Citizen c = citizenDAO.getParticipant("juan", "1234");
+
+       mockMvc.perform(post("/changeInfo")
+    	.param("password", "password")
+		.param("newPassword", "new")
+		.sessionAttr("citizen", c))
+    	.andExpect(view().name("errorContrasena"));
+       
+   }
+   
+   @Test
+   public void changeEmailTest1() throws Exception {
+   	
+	   Citizen c = citizenDAO.getParticipant("juan", "1234");
+
+	   //Cambio de email
+       mockMvc.perform(post("/changeEmail")
+    	.param("email", "juanNuevo@gmail.com")
+		.sessionAttr("citizen", c))
+        .andExpect(status().isOk())
+    	.andExpect(view().name("view"));
+
+       assertEquals("juanNuevo@gmail.com", c.getEmail());
+       
+	   //Cambio de email de nuevo por el original
+       mockMvc.perform(post("/changeEmail")
+    	.param("email", "juan@gmail.com")
+		.sessionAttr("citizen", c))
+        .andExpect(status().isOk())
+     	.andExpect(view().name("view"));
+       
+       assertEquals("juan@gmail.com", c.getEmail());
+
+   }
 }

@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import uo.asw.Application;
+import uo.asw.participants.util.Check;
 import uo.asw.participants.util.CitizenMin;
 import uo.asw.participants.util.DateUtil;
 
@@ -76,4 +77,15 @@ public class UtilTest {
 		assertEquals(27, edad2);
 	}
 	
+	@Test
+	public void checkTest(){
+		
+		assertTrue(Check.validateEmail("juan@gmail.com"));
+		assertTrue(Check.validateEmail("juan@uniovi.es"));
+		
+		assertFalse(Check.validateEmail("usuario"));
+		assertFalse(Check.validateEmail("usuario@gmail"));
+		assertFalse(Check.validateEmail("usuario.com"));
+
+	}
 }
