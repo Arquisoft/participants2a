@@ -128,6 +128,14 @@ public class WebController {
 	
 	@RequestMapping(value = "/changeEmail", method = RequestMethod.POST)
 	public String changeEmail(HttpSession session, @RequestParam String email){
-		return "view";
+		Citizen c = (Citizen) session.getAttribute("citizen");
+		if(c != null){
+			if(!email.isEmpty() && Check.validateEmail(email)){
+				c.setEmail(email);
+				cc.updateInfo(c);
+				return "view";
+			}
+		}
+		return "error";
 	}
 }
