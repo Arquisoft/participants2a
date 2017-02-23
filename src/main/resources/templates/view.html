@@ -5,6 +5,19 @@
 <body>
 
 <h2>Tu informacion: </h2>
+<form method="POST" action="changeEmail">
+		<table>
+			<tr>
+				<td>Email:</td>
+				<td><input type="text" name="email" required="required"
+					 th:value="${session.citizen.email}" th:placeholder = "${session.citizen.email}"/></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" name="updateEmial"
+					value="Actualizar email" /></td>
+			</tr>
+		</table>
+	</form>
    <table>
     <tr>
         <td>Nombre: </td>
@@ -14,11 +27,6 @@
         <td>Apellidos: </td>
         <td><span th:text="${session.citizen.apellidos}"/></td>
     </tr>
-    <tr>
-        <td>Email: </td>
-        <td><span th:text="${session.citizen.email}"/></td>
-    </tr>
-    
     <tr>
     	<td>Direccion: </td>
     	<td><span th:text="${session.citizen.direccionPostal}"/></td>
