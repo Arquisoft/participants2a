@@ -2,8 +2,6 @@ package uo.asw.participants.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +29,13 @@ public class DBTest {
     	Citizen c3 = citizenDAO.getParticipant("raul", "1234");
 
 		assertEquals("juan", c1.getNombreUsuario());
-		assertTrue(c1.checkPassword("1234"));
+		assertEquals("1234", c1.getContraseña());
 		
 		assertEquals("pedro", c2.getNombreUsuario());
-		assertTrue(c2.checkPassword("1234"));
-
+		assertEquals("1234", c2.getContraseña());
+		
 		assertEquals("raul", c3.getNombreUsuario());
-		assertTrue(c3.checkPassword("1234"));
+		assertEquals("1234", c3.getContraseña());
     }
     
     @Test
@@ -82,16 +80,16 @@ public class DBTest {
     	Citizen c1 = citizenDAO.getParticipant("juan", "1234");
     	
     	//Cambio de contraseña
-    	c1.setAndHashContraseña("new password");
+    	c1.setContraseña("new password");
        	citizenDAO.updateInfo(c1);
        
-       	assertTrue(c1.checkPassword("new password"));
+       	assertEquals("new password", c1.getContraseña());
        	
        	//Cambio de contraseña por la original
-       	c1.setAndHashContraseña("1234");
+       	c1.setContraseña("1234");
        	citizenDAO.updateInfo(c1);
-
-		assertTrue(c1.checkPassword("1234"));
+       	
+       	assertEquals("1234", c1.getContraseña());
 
         	
     }

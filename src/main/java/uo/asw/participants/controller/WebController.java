@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import uo.asw.dbManagement.CitizenDAO;
 import uo.asw.dbManagement.model.Citizen;
-import uo.asw.participants.ParticipantsService;
 import uo.asw.participants.util.Check;
-import uo.asw.participants.util.CitizenMin;
 
 @Controller
 public class WebController {
@@ -27,6 +25,7 @@ public class WebController {
 	 */
 	@RequestMapping(value = { "/", "/portal" }, method = RequestMethod.GET)
 	public String showView(Model model) {
+		// model.addAttribute("nombre","luis");
 		return "log";
 	}
 
@@ -52,7 +51,7 @@ public class WebController {
 	// }
 
 	@Autowired
-	private ParticipantsService cc;
+	private CitizenDAO cc;
 
 	/**
 	 * Recibe los datos de login del usuario, busca si exite ese usuario y en
@@ -71,13 +70,13 @@ public class WebController {
 	@RequestMapping(value = "/info", method = RequestMethod.POST)
 	public String showInfo(HttpSession session, @RequestParam String user, @RequestParam String password, Model model) {
 
-		CitizenMin c = null;
-		System.out.println("session = [" + session + "], user = [" + user + "], password = [" + password + "], model = [" + model + "]");
+		Citizen c = null;
+
 		if (user != null && password != null) {
-			c = cc.getParticipantsInfo(user, password);
+			c = cc.getParticipant(user, password);
 			if (c != null) {
 				session.setAttribute("citizen", c);
-				model.addAttribute("resultado", "Bienvenid@ " + c.getFirstName());
+				model.addAttribute("resultado", "Bienvenid@ " + c.getNombre());
 				return "view";
 			}
 		}
@@ -112,12 +111,11 @@ public class WebController {
 	@RequestMapping(value = "/changeInfo", method = RequestMethod.POST)
 	public String changePassword(HttpSession session, @RequestParam String password, @RequestParam String newPassword,
 			Model model) {
-		CitizenMin cM = (CitizenMin) session.getAttribute("citizen");
-		Citizen c = cc.getCitizen(cM.getId());
+		Citizen c = (Citizen) session.getAttribute("citizen");
 		if (c != null) {
-			if (c.checkPassword(password) && !newPassword.isEmpty()) {
-				c.setAndHashContraseña(newPassword);
-				cc.changeInfo(c);
+			if (c.getContraseña().equals(password) && !newPassword.isEmpty()) {
+				c.setContraseña(newPassword);
+				cc.updateInfo(c);
 				model.addAttribute("resultado", "Contrasena actualizada correctamente");
 				return "view";
 			}
@@ -139,13 +137,11 @@ public class WebController {
 	 */
 	@RequestMapping(value = "/changeEmail", method = RequestMethod.POST)
 	public String changeEmail(HttpSession session, @RequestParam String email, Model model){
-		CitizenMin cM = (CitizenMin) session.getAttribute("citizen");
-		Citizen c = cc.getCitizen(cM.getId());
+		Citizen c = (Citizen) session.getAttribute("citizen");
 		if(c != null){
 			if(!email.isEmpty() && Check.validateEmail(email)){
-				cM.setEmail(email);
 				c.setEmail(email);
-				cc.changeInfo(c);
+				cc.updateInfo(c);
 				model.addAttribute("resultado", "Email actualizado correctemente a: " + email);
 			}else{
 				model.addAttribute("resultado", "El email no es valido, no actualizado a: " + email);

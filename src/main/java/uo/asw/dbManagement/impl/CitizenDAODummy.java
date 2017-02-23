@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import uo.asw.dbManagement.CitizenDAO;
 import uo.asw.dbManagement.model.Citizen;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -17,47 +18,31 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public class CitizenDAODummy implements CitizenDAO {
-
+    private static Citizen dummyCitizen;
     @PersistenceContext
     private EntityManager entityManager;
     
+    static {
+        dummyCitizen = new Citizen("pass", "dummy", "123456", "Clara", "Oswald", new Date(), "clara@tardis.co.uk", "The Hyperspace", "Inglesa");
+    }
+
     @Override
     public Citizen getParticipant(String login, String password) {
-    	Citizen citizen = getParticipant(login);
-    	if(citizen == null || !citizen.checkPassword(password)) {
-            return null;
-        }else {
-            return citizen;
-        }
-    }
-
-    @Override
-    public Citizen getParticipant(String login) {
-        List<Citizen> citizen = entityManager.createQuery("select c from Citizen c where c.nombreUsuario = ?1")
-                .setParameter(1, login)
-                .getResultList();
-        if(citizen.isEmpty()){
-            return null;
-        }else{
-            return citizen.get(0);
-        }
-    }
-
-    @Override
-    public Citizen getParticipantById(Long id) {
-        List<Citizen> citizen = entityManager.createQuery("select c from Citizen c where c.id = ?1")
-                .setParameter(1, id)
-                .getResultList();
-        if(citizen.isEmpty()){
-            return null;
-        }else{
-            return citizen.get(0);
-        }
+    	@SuppressWarnings("unchecked")
+		List<Citizen> citizen =  entityManager.createQuery(
+    	        "from Citizen where nombreUsuario = ?1 and contraseña = ?2")
+    	        .setParameter(1, login).setParameter(2, password)
+    	        .getResultList();
+    	if(citizen.isEmpty())
+    		return null;
+    	return citizen.get(0);
+       // return dummyCitizen;
     }
 
     @Override
     public Citizen updateInfo(Citizen toUpdate) {
     	entityManager.merge(toUpdate);
-        return toUpdate;
+        dummyCitizen = toUpdate;
+        return dummyCitizen;
     }
 }
