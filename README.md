@@ -21,12 +21,12 @@ Skeleton of participants module
 # Funcionamiento:
   1. Escribir en el navegador: http://localhost:8080/
   2. Proporcionar los datos de login para los usuarios disponibles:
-        Login: juan, pedro, raul
-        Password: 1234
+        - Login: juan, pedro, raul
+        - Password: 1234
   3. Aparecerá la pantalla que muestra los datos del usuario
-      3.1 Se puede modificar el email (se comprueba si el email es valido)
-      3.2 Se puede ir a la pantalla de cambio de contraseña
+        - Se puede modificar el email (se comprueba si el email es valido)
+        - Se puede ir a la pantalla de cambio de contraseña
   4. Cambio de contraseña:
-      4.1 Escribir la contreseña antigua
-      4.2 Escribir la nueva contraseña
+        - Escribir la contreseña antigua
+        - Escribir la nueva contraseña
 
