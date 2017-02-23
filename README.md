@@ -7,7 +7,7 @@
 
 [![Join the chat at https://gitter.im/Arquisoft/participants2a](https://badges.gitter.im/Arquisoft/participants2a.svg)](https://gitter.im/Arquisoft/participants2a?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Skeleton of participants module
+Modulo de participantes del grupo 2a
 
 # Authors
 
@@ -19,6 +19,7 @@ Skeleton of participants module
 - Luis Irazusta Lorenzo (@Fuegon)
 
 # Funcionamiento:
+## Interfaz HTML
   1. Escribir en el navegador: http://localhost:8080/
   2. Proporcionar los datos de login para los usuarios disponibles:
         - Login: juan, pedro, raul
@@ -30,3 +31,40 @@ Skeleton of participants module
         - Escribir la contreseña antigua
         - Escribir la nueva contraseña
 
+##Servicio REST
+   El punto de entrada se encuentra en http://localhost:8080/user.
+   
+   Acepta peticiones POST en formato JSON con el contenido:
+   ``{"login":"login_usuario", "password":"contraseña_usuario"}``
+   
+   Devuelve la informacion del usuario si las credenciales en formato 
+   JSON o XML segun se indique en la cabecera de la petición.
+   
+   Si los datos no son correctos se devuelve un error HTTP 404.
+   Si los parametros no son correctos se devuelve un codigo de error HTTP 406.
+   
+   ### Formato de retorn JSON
+   ```json
+   {
+     "firstName": "nombre",
+     "lastName": "apellidos",
+     "edad": edad,
+     "id": id_usuario,
+     "email": "email",
+     "address": "direccion",
+     "nationality": "nacionalidad"
+   }
+   ```
+   ### Formato retorno XML
+   ```xml
+   <CitizenMin>
+       <firstName>nombre</firstName>
+       <lastName>apellidos</lastName>
+       <edad>edad</edad>
+       <id>id_usuario</id>
+       <email>email</email>
+       <address>direccion</address>
+       <nationality>nacionalidad</nationality>
+   </CitizenMin>
+   ```
+   

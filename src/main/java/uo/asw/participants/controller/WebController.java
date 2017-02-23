@@ -72,7 +72,6 @@ public class WebController {
 	public String showInfo(HttpSession session, @RequestParam String user, @RequestParam String password, Model model) {
 
 		CitizenMin c = null;
-		System.out.println("session = [" + session + "], user = [" + user + "], password = [" + password + "], model = [" + model + "]");
 		if (user != null && password != null) {
 			c = cc.getParticipantsInfo(user, password);
 			if (c != null) {
