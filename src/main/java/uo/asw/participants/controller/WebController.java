@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import uo.asw.dbManagement.CitizenDAO;
 import uo.asw.dbManagement.model.Citizen;
+import uo.asw.participants.util.Check;
 
 @Controller
 public class WebController {
@@ -124,4 +125,9 @@ public class WebController {
 
 	}
 
+	
+	@RequestMapping(value = "/changeEmail", method = RequestMethod.POST)
+	public String changeEmail(HttpSession session, @RequestParam String email){
+		return "view";
+	}
 }
