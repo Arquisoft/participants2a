@@ -126,15 +126,27 @@ public class WebController {
 	}
 
 	
+	/**
+	 * Modifica el email del usuario en sesión, comprueba que el email es correcto
+	 * segun un patron y muestra el resultado sobre el HTML view, o redirige a la 
+	 * pagina de error en caso de que no se encuentre el usuario en sesion
+	 * @param session objeto session del usuario registrado
+	 * @param email nuevo email de usuario
+	 * @param model
+	 * @return view si el usuario esta registrado, error si el usuario no esta registrado
+	 */
 	@RequestMapping(value = "/changeEmail", method = RequestMethod.POST)
-	public String changeEmail(HttpSession session, @RequestParam String email){
+	public String changeEmail(HttpSession session, @RequestParam String email, Model model){
 		Citizen c = (Citizen) session.getAttribute("citizen");
 		if(c != null){
 			if(!email.isEmpty() && Check.validateEmail(email)){
 				c.setEmail(email);
 				cc.updateInfo(c);
-				return "view";
+				model.addAttribute("resultado", "Email actualizado correctemente a: " + email);
+			}else{
+				model.addAttribute("resultado", "El email no es valido, no actualizado a: " + email);
 			}
+			return "view";	
 		}
 		return "error";
 	}
