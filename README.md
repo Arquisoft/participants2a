@@ -19,19 +19,19 @@ Skeleton of participants module
 - Luis Irazusta Lorenzo (@Fuegon)
 
 # Funcionamiento:
- ## Interfaz HTML
-  1. Escribir en el navegador: http://localhost:8080/
-  2. Proporcionar los datos de login para los usuarios disponibles:
-        - Login: juan, pedro, raul
-        - Password: 1234
-  3. Aparecerá la pantalla que muestra los datos del usuario
-        - Se puede modificar el email (se comprueba si el email es valido)
-        - Se puede ir a la pantalla de cambio de contraseña
-  4. Cambio de contraseña:
-        - Escribir la contreseña antigua
-        - Escribir la nueva contraseña
+## Interfaz HTML
+1. Escribir en el navegador: http://localhost:8080/
+2. Proporcionar los datos de login para los usuarios disponibles:
+ * Login: juan, pedro, raul
+ * Password: 1234
+3. Aparecerá la pantalla que muestra los datos del usuario
+ * Se puede modificar el email (se comprueba si el email es valido)
+ * Se puede ir a la pantalla de cambio de contraseña
+4. Cambio de contraseña:
+ * Escribir la contreseña antigua
+ * Escribir la nueva contraseña
 
-##Servicio REST
+## Servicio REST
    El punto de entrada se encuentra en http://localhost:8080/user.
    
    Acepta peticiones POST en formato JSON con el contenido:
@@ -43,7 +43,7 @@ Skeleton of participants module
    Si los datos no son correctos se devuelve un error HTTP 404.
    Si los parametros no son correctos se devuelve un codigo de error HTTP 406.
    
-   ### Formato de retorn JSON
+### Formato de retorn JSON
    ```json
    {
      "firstName": "nombre",
@@ -55,7 +55,7 @@ Skeleton of participants module
      "nationality": "nacionalidad"
    }
    ```
-   ### Formato retorno XML
+### Formato retorno XML
    ```xml
    <CitizenMin>
        <firstName>nombre</firstName>
